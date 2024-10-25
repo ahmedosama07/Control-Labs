@@ -1,0 +1,30 @@
+name: MATLAB CI
+
+on:
+  push:
+    paths:
+      - '**/*.m'
+      - '**/*.mlx'
+      - '**/*.slx'
+  pull_request:
+    paths:
+      - '**/*.m'
+      - '**/*.mlx'
+      - '**/*.slx'
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v2
+
+    - name: Set up MATLAB
+      uses: matlab-actions/setup-matlab@v1
+      with:
+        release: R2021a
+
+    - name: Run MATLAB tests
+      run: |
+        matlab -batch "results = runtests('IncludeSubfolders', true); assertSuccess(results);"

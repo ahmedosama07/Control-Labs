@@ -1,0 +1,23 @@
+# Normalize all text files to LF
+* text=auto
+
+# Ensure MATLAB and Simulink files have LF line endings
+*.m eol=lf
+*.mlx eol=lf
+*.slx eol=lf
+
+# Treat all image files as binary
+*.png binary
+*.jpg binary
+
+# Ensure LaTeX files have LF line endings
+*.tex eol=lf
+*.bib eol=lf
+
+# Exclude auxiliary LaTeX files from export
+*.aux export-ignore
+*.log export-ignore
+*.out export-ignore
+*.toc export-ignore
+*.bbl export-ignore
+*.blg export-ignore
