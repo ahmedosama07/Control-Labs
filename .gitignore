@@ -1,3 +1,5 @@
 *.asv
 *.slxc
 *.pdf
+*/slprj/*
+*.mat
