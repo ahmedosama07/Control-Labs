@@ -59,7 +59,7 @@ ineq = solve(((B^2)/(4*J) < K_Mp10) & ...
     K_Mp10, 'ReturnConditions', true);
 
 % Plot feasible K values on a number line
-x = 0:1000;
+x = 0 : 0.01 : 1000;
 figure;
 hold on;
 range = x(boolean(subs(ineq.conditions, x)));
@@ -77,7 +77,7 @@ hold off;
 %% Maximum K for Rise Time < 80 Seconds
 % Binary search to find maximum K such that rise time is under 80 seconds.
 RiseTime_max = 80;  % Target rise time (seconds)
-low = 0; high = 1000; precision = 0.001;  % Search range and precision
+low = 0; high = 1000; precision = 1e-5;  % Search range and precision
 k = low;
 while (high - low) > precision
     mid = (low + high) / 2;
@@ -99,13 +99,14 @@ end
 % Plot feasible K values on a number line
 syms K_tr80 real
 ineq = solve(((B^2)/(4*J) < K_tr80) &(K_tr80 > k), K_tr80, 'ReturnConditions',true);
-x = 0 : 1000;
-range = x(boolean(subs(ineq.conditions, x)));
+x = 0 : precision : 1000;
+%range = x(boolean(subs(ineq.conditions, x)));
+range = x(boolean(x>k));
 figure;
 hold on;
 plot(x, zeros(size(x)), 'k', 'LineWidth', 1);
 plot(range, zeros(size(range)), 'r', 'LineWidth', 3);
-plot(range(1), 0, 'ko', 'MarkerFaceColor', 'w', 'MarkerSize', 8); % Open circle at x = 5
+plot(range(1), 0, 'ko', 'MarkerFaceColor', 'w', 'MarkerSize', 8);
 ylim([-0.5, 0.5]);
 title('Values of K for Rise Time < 80 sec');
 grid on;
